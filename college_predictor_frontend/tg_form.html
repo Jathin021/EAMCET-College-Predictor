@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TG EAPCET College Predictor</title>
+  <link rel="icon" href="logo.jpg" type="image/x-icon" />
+  <style>
+    /* Base reset & font */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #3f87a6, #ebf8e1);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #222;
+    }
+
+    /* Container Box */
+    .box {
+      background-color: #ffffffdd;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .box:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+    }
+
+    /* Heading */
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #054a91;
+      text-shadow: 1px 1px 2px #cce6ff;
+      letter-spacing: 1.1px;
+    }
+
+    /* Labels */
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #054a91;
+    }
+
+    /* Inputs & Select */
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 2px solid #3f87a6;
+      font-size: 1rem;
+      background-color: #e9f0f8;
+      color: #054a91;
+      transition: border-color 0.3s ease;
+      outline: none;
+      font-weight: 600;
+    }
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #eb984e;
+      background-color: #fff9f0;
+      box-shadow: 0 0 8px #eb984eaa;
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      background: linear-gradient(45deg, #eb984e, #f39c12);
+      border: none;
+      border-radius: 16px;
+      padding: 14px 0;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(243, 156, 18, 0.6);
+      transition: background 0.4s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: linear-gradient(45deg, #f39c12, #eb984e);
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(243, 156, 18, 0.8);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .box {
+        padding: 30px 20px;
+        max-width: 95%;
+      }
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>TG EAPCET Details</h2>
+    <form>
+      <label for="rank">Rank:</label>
+      <input type="number" id="rank" name="rank" required placeholder="Enter your rank" />
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="">Select Gender</option>
+        <option value="BOYS">BOYS</option>
+        <option value="GIRLS">GIRLS</option>
+        <option value="GEN OU">BOYS(EWS-OU)</option>
+        <option value="GIRLS OU">GIRLS(EWS-OU)</option>
+      </select>
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="">Select Category</option>
+        <option value="OC">OC</option>
+        <option value="BC_A">BC_A</option>
+        <option value="BC_B">BC_B</option>
+        <option value="BC_C">BC_C</option>
+        <option value="BC_D">BC_D</option>
+        <option value="BC_E">BC_E</option>
+        <option value="SC">SC</option>
+        <option value="ST">ST</option>
+        <option value="EWS">EWS GEN OU</option>
+        <option value="EWS">EWS GIRLS OU</option>
+      </select>
+
+      <label for="branch">Branch:</label>
+      <select id="branch" name="branch" required>
+        <option value="">Select Branch</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING">COMPUTER SCIENCE AND ENGINEERING - CSE</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)">COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING) - CSM</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)">COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE) - CSD</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)">COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY) - CSC</option>
+        <option value="ELECTRONICS AND COMMUNICATION ENGINEERING">ELECTRONICS AND COMMUNICATION ENGINEERING - ECE</option>
+        <option value="ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING">ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING - ECI</option>
+        <option value="ELECTRONICS AND INSTRUMENTATION ENGINEERING">ELECTRONICS AND INSTRUMENTATION ENGINEERING - EIE</option>
+        <option value="ELECTRONICS AND COMPUTER ENGINEERING">ELECTRONICS AND COMPUTER ENGINEERING</option>
+        <option value="ELECTRICAL AND ELECTRONICS ENGINEERING">ELECTRICAL AND ELECTRONICS ENGINEERING - EEE</option>
+        <option value="MECHANICAL ENGINEERING">MECHANICAL ENGINEERING - Mechanical</option>
+        <option value="CIVIL ENGINEERING">CIVIL ENGINEERING - Civil</option>
+        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING - AIM</option>
+        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">(AID)ARTIFICIAL INTELLIGENCE AND DATA SCIENCE - AID</option>
+        <option value="COMPUTER SCIENCE AND BUSINESS SYSTEM">COMPUTER SCIENCE AND BUSINESS SYSTEM - CSBS</option>
+        <option value="INFORMATION TECHNOLOGY">INFORMATION TECHNOLOGY - IT</option>
+        <option value="CSE (IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY)">CSE (IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY) - CIC</option>
+        <option value="MINING ENGINEERING">MINING ENGINEERING - MIN</option>
+        <option value="BIO-MEDICAL ENGINEERING">BIO-MEDICAL ENGINEERING - BME</option>
+        <option value="PHARMACEUTICAL ENGINEERING">PHARMACEUTICAL ENGINEERING - PHE</option>
+        <option value="AGRICULTURAL ENGINEERING">AGRICULTURAL ENGINEERING - AGR</option>
+        <option value="BIO-TECHNOLOGY">BIO-TECHNOLOGY - BIO</option>
+        <option value="CHEMICAL ENGINEERING">CHEMICAL ENGINEERING - CHE</option>
+        <option value="DAIRYING">DAIRYING</option>
+        <option value="FOOD TECHNOLOGY">FOOD TECHNOLOGY - FDT</option>
+        <option value="COMPUTER SCIENCE & DESIGN">COMPUTER SCIENCE & DESIGN - CSG</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (IOT)">COMPUTER SCIENCE AND ENGINEERING (IOT) - CSO</option>
+        <option value="BUILDING SERVICES ENGG">BUILDING SERVICES ENGG - BSE</option>
+        <option value="DIGITAL TECHNIQUES FOR DESIGN AND PLANNING">DIGITAL TECHNIQUES FOR DESIGN AND PLANNING - DTD</option>
+        <option value="B.PLANNING">B.PLANNING - PLG</option>
+        <option value="GEO INFORMATICS">GEO INFORMATICS - GEO</option>
+        <option value="METALLURGICAL ENGINEERING">METALLURGICAL ENGINEERING</option>
+        <option value="BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS">BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS - MMS</option>
+        <option value="BTECH MECHANICAL WITH MTECH THERMAL ENGG">BTECH MECHANICAL WITH MTECH THERMAL ENGG</option>
+        <option value="TEXTILE TECHNOLOGY / TEXTILE ENGINEERING">TEXTILE TECHNOLOGY / TEXTILE ENGINEERING - TEX</option>
+        <option value="AERONAUTICAL ENGINEERING">AERONAUTICAL ENGINEERING</option>
+      </select>
+
+      <button type="submit">Predict College</button>
+    </form>
+  </div>
+</body>
+</html>
