@@ -251,11 +251,13 @@
   <script>
     document.getElementById("predict-form").addEventListener("submit", async function (e) {
   e.preventDefault();
+  
   const rank = document.getElementById("rank").value;
   const gender = document.getElementById("gender").value;
   const category = document.getElementById("category").value;
   const branch = document.getElementById("branch").value;
 
+  // Combine category + gender and normalize formatting
   const rawCategoryGender = category + " " + gender;
   const categoryGender = rawCategoryGender.replace(/\s+/g, '').replace('-', '_').toUpperCase();
 
@@ -267,56 +269,74 @@
     </div>
   `;
 
-  // Wait 5 seconds before fetching results
+  // Optional delay (can remove if unnecessary)
   await new Promise(resolve => setTimeout(resolve, 5000));
 
-   fetch("https://college-predictor-backend.onrender.com/api/predict-colleges", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      rank: rank,
-      categoryGender: categoryGender,
-      branchName: branch
-    })
-  });
-
-  const data = await response.json();
-  resultsContainer.innerHTML = ""; // Clear loading animation
-
-  for (let phase in data) {
-    const colleges = data[phase];
-    if (!colleges.length) continue;
-
-    const phaseSection = document.createElement("div");
-    phaseSection.className = "result-phase";
-    phaseSection.innerHTML = `<h3>${phase.replace("_", " ")}</h3>`;
-
-    colleges.forEach(college => {
-      const closingRank = Object.entries(college).find(([k, v]) =>
-        k.replace(/\n/g, '').replace(/\s/g, '').replace(/-/g, '_').toUpperCase() === categoryGender
-      )?.[1] || "N/A";
-
-      const card = document.createElement("div");
-      card.className = "college-card";
-      card.innerHTML = `
-        <table>
-          <tr><th>Institute</th><td>${college["Institute Name"]}</td></tr>
-          <tr><th>Branch</th><td>${college["Branch Name"]}</td></tr>
-          <tr><th>Location</th><td>${college["Place"]}, ${college["Dist \nCode"]}</td></tr>
-          <tr><th>Tuition Fee</th><td>₹${college["Tuition Fee"]}</td></tr>
-          <tr><th>Closing Rank</th><td>${closingRank}</td></tr>
-        </table>
-      `;
-      phaseSection.appendChild(card);
+  try {
+    // Make the POST request and await response
+    const response = await fetch("https://college-predictor-backend.onrender.com/api/predict-colleges", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        rank: Number(rank),
+        categoryGender: categoryGender,
+        branchName: branch
+      })
     });
 
-    resultsContainer.appendChild(phaseSection);
-  }
+    // Check if response is OK
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
 
-  if (resultsContainer.innerHTML.trim() === "") {
-    resultsContainer.innerHTML = "<p style='margin-top: 20px; color: red;'>No colleges found for the given input.</p>";
+    const data = await response.json();
+
+    resultsContainer.innerHTML = ""; // Clear loading spinner
+
+    let foundAny = false;
+
+    // Iterate over phases in response data
+    for (let phase in data) {
+      const colleges = data[phase];
+      if (!colleges.length) continue;
+
+      foundAny = true;
+
+      const phaseSection = document.createElement("div");
+      phaseSection.className = "result-phase";
+      phaseSection.innerHTML = `<h3>${phase.replace(/_/g, " ")}</h3>`;
+
+      colleges.forEach(college => {
+        const closingRank = Object.entries(college).find(([k, v]) =>
+          k.replace(/\n/g, '').replace(/\s/g, '').replace(/-/g, '_').toUpperCase() === categoryGender
+        )?.[1] || "N/A";
+
+        const card = document.createElement("div");
+        card.className = "college-card";
+        card.innerHTML = `
+          <table>
+            <tr><th>Institute</th><td>${college["Institute Name"]}</td></tr>
+            <tr><th>Branch</th><td>${college["Branch Name"]}</td></tr>
+            <tr><th>Location</th><td>${college["Place"]}, ${college["Dist \nCode"]}</td></tr>
+            <tr><th>Tuition Fee</th><td>₹${college["Tuition Fee"]}</td></tr>
+            <tr><th>Closing Rank</th><td>${closingRank}</td></tr>
+          </table>
+        `;
+        phaseSection.appendChild(card);
+      });
+
+      resultsContainer.appendChild(phaseSection);
+    }
+
+    if (!foundAny) {
+      resultsContainer.innerHTML = "<p style='margin-top: 20px; color: red;'>No colleges found for the given input.</p>";
+    }
+
+  } catch (error) {
+    resultsContainer.innerHTML = `<p style='margin-top: 20px; color: red;'>Error: ${error.message}</p>`;
   }
 });
+
 
   </script>
 </body>
