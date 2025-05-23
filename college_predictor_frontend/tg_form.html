@@ -18,7 +18,8 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      padding: 40px 10px;
       color: #222;
     }
 
@@ -29,7 +30,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       padding: 40px 30px;
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
       text-align: center;
       transition: transform 0.3s ease;
     }
@@ -110,18 +111,75 @@
         font-size: 1.6rem;
       }
     }
+
+    /* Result styles */
+    #results {
+      margin-top: 40px;
+      text-align: left;
+    }
+    .result-phase {
+      margin-bottom: 30px;
+    }
+    .result-phase h3 {
+      color: #054a91;
+      font-weight: 700;
+      border-bottom: 2px solid #eb984e;
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+    .college-card {
+      background: #f0f8ff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .college-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .college-card table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .college-card th, .college-card td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #ccc;
+      font-weight: 600;
+      color: #333;
+    }
+    .college-card th {
+      background-color: #d0e7ff;
+      text-align: left;
+      width: 40%;
+    }
+  .spinner {
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #054a91;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   </style>
 </head>
 <body>
   <div class="box">
     <h2>TG EAPCET Details</h2>
-    <form>
+    <form id="predict-form">
       <label for="rank">Rank:</label>
       <input type="number" id="rank" name="rank" required placeholder="Enter your rank" />
 
       <label for="gender">Gender:</label>
       <select id="gender" name="gender" required>
-        <option value="">Select Gender</option>
         <option value="">Select Gender</option>
         <option value="BOYS">BOYS</option>
         <option value="GIRLS">GIRLS</option>
@@ -147,45 +205,119 @@
       <label for="branch">Branch:</label>
       <select id="branch" name="branch" required>
         <option value="">Select Branch</option>
-        <option value="COMPUTER SCIENCE AND ENGINEERING">COMPUTER SCIENCE AND ENGINEERING - CSE</option>
-        <option value="COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)">COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING) - CSM</option>
-        <option value="COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)">COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE) - CSD</option>
-        <option value="COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)">COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY) - CSC</option>
-        <option value="ELECTRONICS AND COMMUNICATION ENGINEERING">ELECTRONICS AND COMMUNICATION ENGINEERING - ECE</option>
-        <option value="ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING">ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING - ECI</option>
-        <option value="ELECTRONICS AND INSTRUMENTATION ENGINEERING">ELECTRONICS AND INSTRUMENTATION ENGINEERING - EIE</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING">CSE- COMPUTER SCIENCE AND ENGINEERING</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)">CSM- COMPUTER SCIENCE AND ENGINEERING (ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)">CSD-COMPUTER SCIENCE AND ENGINEERING (DATA SCIENCE)</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)">CSC-COMPUTER SCIENCE AND ENGINEERING (CYBER SECURITY)</option>
+        <option value="ELECTRONICS AND COMMUNICATION ENGINEERING">ECE</option>
+        <option value="ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING">ECI - ELECTRONICS COMMUNICATION AND INSTRUMENTATION ENGINEERING</option>
+        <option value="ELECTRONICS AND INSTRUMENTATION ENGINEERING">EIE- ELECTRONICS AND INSTRUMENTATION ENGINEERING</option>
         <option value="ELECTRONICS AND COMPUTER ENGINEERING">ELECTRONICS AND COMPUTER ENGINEERING</option>
-        <option value="ELECTRICAL AND ELECTRONICS ENGINEERING">ELECTRICAL AND ELECTRONICS ENGINEERING - EEE</option>
-        <option value="MECHANICAL ENGINEERING">MECHANICAL ENGINEERING - Mechanical</option>
-        <option value="CIVIL ENGINEERING">CIVIL ENGINEERING - Civil</option>
-        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING - AIM</option>
-        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">(AID)ARTIFICIAL INTELLIGENCE AND DATA SCIENCE - AID</option>
-        <option value="COMPUTER SCIENCE AND BUSINESS SYSTEM">COMPUTER SCIENCE AND BUSINESS SYSTEM - CSBS</option>
-        <option value="INFORMATION TECHNOLOGY">INFORMATION TECHNOLOGY - IT</option>
-        <option value="CSE (IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY)">CSE (IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY) - CIC</option>
-        <option value="MINING ENGINEERING">MINING ENGINEERING - MIN</option>
-        <option value="BIO-MEDICAL ENGINEERING">BIO-MEDICAL ENGINEERING - BME</option>
-        <option value="PHARMACEUTICAL ENGINEERING">PHARMACEUTICAL ENGINEERING - PHE</option>
-        <option value="AGRICULTURAL ENGINEERING">AGRICULTURAL ENGINEERING - AGR</option>
-        <option value="BIO-TECHNOLOGY">BIO-TECHNOLOGY - BIO</option>
-        <option value="CHEMICAL ENGINEERING">CHEMICAL ENGINEERING - CHE</option>
+        <option value="ELECTRICAL AND ELECTRONICS ENGINEERING">EEE</option>
+        <option value="MECHANICAL ENGINEERING">Mechanical</option>
+        <option value="CIVIL ENGINEERING">Civil</option>
+        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">AIM(ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING)</option>
+        <option value="ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING">(AID)ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</option>
+        <option value="COMPUTER SCIENCE AND BUSINESS SYSTEM">COMPUTER SCIENCE AND BUSINESS SYSTEM</option>
+        <option value="INFORMATION TECHNOLOGY">IT</option>
+        <option value="CSE (IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY)">CIC (CSE-IoT AND CYBER SECURITY INCLUDING BLOCK CHAIN TECHNOLOGY)</option>
+        <option value="MINING ENGINEERING">MINING ENGINEERING(MIN)</option>
+        <option value="BIO-MEDICAL ENGINEERING">BIO-MEDICAL ENGINEERING(BME)</option>
+        <option value="PHARMACEUTICAL ENGINEERING">PHARMACEUTICAL ENGINEERING(PHE)</option>
+        <option value="AGRICULTURAL ENGINEERING">AGRICULTURAL ENGINEERING(AGR)</option>
+        <option value="BIO-TECHNOLOGY">BIO-TECHNOLOGY(BIO)</option>
+        <option value="CHEMICAL ENGINEERING">CHEMICAL ENGINEERING(CHE)</option>
         <option value="DAIRYING">DAIRYING</option>
-        <option value="FOOD TECHNOLOGY">FOOD TECHNOLOGY - FDT</option>
-        <option value="COMPUTER SCIENCE & DESIGN">COMPUTER SCIENCE & DESIGN - CSG</option>
-        <option value="COMPUTER SCIENCE AND ENGINEERING (IOT)">COMPUTER SCIENCE AND ENGINEERING (IOT) - CSO</option>
-        <option value="BUILDING SERVICES ENGG">BUILDING SERVICES ENGG - BSE</option>
-        <option value="DIGITAL TECHNIQUES FOR DESIGN AND PLANNING">DIGITAL TECHNIQUES FOR DESIGN AND PLANNING - DTD</option>
-        <option value="B.PLANNING">B.PLANNING - PLG</option>
-        <option value="GEO INFORMATICS">GEO INFORMATICS - GEO</option>
+        <option value="FOOD TECHNOLOGY">FOOD TECHNOLOGY(FDT)</option>
+        <option value="COMPUTER SCIENCE & DESIGN">(CSG)COMPUTER SCIENCE & DESIGN</option>
+        <option value="COMPUTER SCIENCE AND ENGINEERING (IOT)">CSO-COMPUTER SCIENCE AND ENGINEERING (IOT)</option>
+        <option value="BUILDING SERVICES ENGG">BUILDING SERVICES ENGG(BSE)</option>
+        <option value="DIGITAL TECHNIQUES FOR DESIGN AND PLANNING">DTD-DIGITAL TECHNIQUES FOR DESIGN AND PLANNING</option>
+        <option value="B.PLANNING">PLG- B.PLANNING</option>
+        <option value="GEO INFORMATICS">GEO- GEO INFORMATICS</option>
         <option value="METALLURGICAL ENGINEERING">METALLURGICAL ENGINEERING</option>
-        <option value="BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS">BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS - MMS</option>
+        <option value="BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS">MMS- BTECH MECHANICAL WITH MTECH MANUFACTURING SYSTEMS</option>
         <option value="BTECH MECHANICAL WITH MTECH THERMAL ENGG">BTECH MECHANICAL WITH MTECH THERMAL ENGG</option>
-        <option value="TEXTILE TECHNOLOGY / TEXTILE ENGINEERING">TEXTILE TECHNOLOGY / TEXTILE ENGINEERING - TEX</option>
+        <option value="TEXTILE TECHNOLOGY / TEXTILE ENGINEERING">TEX-TEXTILE TECHNOLOGY / TEXTILE ENGINEERING</option>
         <option value="AERONAUTICAL ENGINEERING">AERONAUTICAL ENGINEERING</option>
       </select>
 
       <button type="submit">Predict College</button>
     </form>
+
+    <div id="results"></div>
   </div>
+
+  <script>
+    document.getElementById("predict-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const rank = document.getElementById("rank").value;
+  const gender = document.getElementById("gender").value;
+  const category = document.getElementById("category").value;
+  const branch = document.getElementById("branch").value;
+
+  const rawCategoryGender = category + " " + gender;
+  const categoryGender = rawCategoryGender.replace(/\s+/g, '').replace('-', '_').toUpperCase();
+
+  const resultsContainer = document.getElementById("results");
+  resultsContainer.innerHTML = `
+    <div style="text-align: center;">
+      <p style="color: #054a91; font-weight: bold; font-size: 1.1rem;">Analyzing data and searching for best colleges...</p>
+      <div class="spinner"></div>
+    </div>
+  `;
+
+  // Wait 5 seconds before fetching results
+  await new Promise(resolve => setTimeout(resolve, 5000));
+
+  const response = await fetch("http://localhost:8000/api/predict-colleges", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      rank: rank,
+      categoryGender: categoryGender,
+      branchName: branch
+    })
+  });
+
+  const data = await response.json();
+  resultsContainer.innerHTML = ""; // Clear loading animation
+
+  for (let phase in data) {
+    const colleges = data[phase];
+    if (!colleges.length) continue;
+
+    const phaseSection = document.createElement("div");
+    phaseSection.className = "result-phase";
+    phaseSection.innerHTML = `<h3>${phase.replace("_", " ")}</h3>`;
+
+    colleges.forEach(college => {
+      const closingRank = Object.entries(college).find(([k, v]) =>
+        k.replace(/\n/g, '').replace(/\s/g, '').replace(/-/g, '_').toUpperCase() === categoryGender
+      )?.[1] || "N/A";
+
+      const card = document.createElement("div");
+      card.className = "college-card";
+      card.innerHTML = `
+        <table>
+          <tr><th>Institute</th><td>${college["Institute Name"]}</td></tr>
+          <tr><th>Branch</th><td>${college["Branch Name"]}</td></tr>
+          <tr><th>Location</th><td>${college["Place"]}, ${college["Dist \nCode"]}</td></tr>
+          <tr><th>Tuition Fee</th><td>₹${college["Tuition Fee"]}</td></tr>
+          <tr><th>Closing Rank</th><td>${closingRank}</td></tr>
+        </table>
+      `;
+      phaseSection.appendChild(card);
+    });
+
+    resultsContainer.appendChild(phaseSection);
+  }
+
+  if (resultsContainer.innerHTML.trim() === "") {
+    resultsContainer.innerHTML = "<p style='margin-top: 20px; color: red;'>No colleges found for the given input.</p>";
+  }
+});
+
+  </script>
 </body>
 </html>
